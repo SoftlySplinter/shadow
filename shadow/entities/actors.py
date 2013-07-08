@@ -73,8 +73,9 @@ class Player(Actor):
         self.direction |= direction
 
     def unset_move(self, direction):
-            self.direction &= ~direction
+        pass#self.direction &= ~direction
 
     def tick(self):
         super(Player, self).tick()
         self.move(self.direction)
+        self.direction = 0b0000

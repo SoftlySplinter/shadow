@@ -5,7 +5,7 @@ class TileType():
     @classmethod
     def load(cls):
         # TODO Load from file.
-        return [TileType("test", "base_tile", True), TileType("edge","base_tile", False)]
+        return [TileType("test", "base_tile", True), TileType("edge","edge", False)]
 
     def __init__(self, name, img, passable):
         self.name = name

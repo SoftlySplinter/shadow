@@ -1,4 +1,4 @@
-import sys
+import sys, random
 import pygame
 from pygame.locals import *
 from shadow.entities import Tile, TileType, Player
@@ -11,7 +11,7 @@ def run():
     print "Shadow copyright Alexander Brown, 2013"
 
 class Game:
-    size = (10,10)
+    size = (25,25)
 
     def __init__(self):
         self.running = False
@@ -27,10 +27,14 @@ class Game:
         self.running = True
         pygame.init()
         self.window = pygame.display.set_mode((600,480))
+        self.window.convert_alpha()
 
         for i in xrange(0, self.size[0]):
             for j in xrange(0, self.size[1]):
-                self.em.add(Tile((i,j), self.types[0]))
+                if (i,j) == (0,0):
+                    self.em.add(Tile((i,j), self.types[0]))
+                else:
+                    self.em.add(Tile((i,j), self.types[random.randint(0,len(self.types)-1)]))
 
         for i in xrange(-1,self.size[0]):
                 self.em.add(Tile((i, -1), self.types[1]))
@@ -49,8 +53,6 @@ class Game:
         self.em.tick()
         self.dm.tick()
         self.clock.tick(60)
-#        print "FPS: {}".format(self.clock.get_fps())
-            
 
     def input(self, events):
         for event in events:

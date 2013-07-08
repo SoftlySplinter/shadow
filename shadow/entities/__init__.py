@@ -1,8 +1,9 @@
-import pygame, os
+import pygame, os, random
 
 class Entity(object):
     redraw = True
     cached_image = None
+    light = 0
 
     def tick(self):
         pass
@@ -17,7 +18,12 @@ class Entity(object):
     def draw(self):
         if self.cached_image == None:
             self.load_image()
-        return self.cached_image
+        darken = pygame.Surface(self.cached_image.get_size())
+        darken.fill((0,0,10))
+        darken.set_alpha((255 / 15 * (15 - self.light)) - 4)
+        temp = self.cached_image.copy()
+        temp.blit(darken, (0,0))
+        return temp
 
     def load_image(self):
         filen = os.path.join("data/img/", self.load_image_name() + ".png")
