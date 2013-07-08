@@ -25,7 +25,7 @@ class Tile(Entity):
         pass
 
     def load_image(self):
-        self.set_cached_image(self.tile_type.surface)
+        return self.tile_type.surface
 
     def order(self):
         return 0

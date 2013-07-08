@@ -34,7 +34,7 @@ class Game:
                 if (i,j) == (0,0):
                     self.em.add(Tile((i,j), self.types[0]))
                 else:
-                    self.em.add(Tile((i,j), self.types[random.randint(0,len(self.types)-1)]))
+                    self.em.add(Tile((i,j), self.types[random.randint(0,len(self.types)-2)]))
 
         for i in xrange(-1,self.size[0]):
                 self.em.add(Tile((i, -1), self.types[1]))

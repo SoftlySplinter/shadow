@@ -1,5 +1,6 @@
 from pygame.locals import K_UP, K_DOWN, K_RIGHT, K_LEFT, K_w, K_a, K_s, K_d
-from shadow.entities import Entity
+from shadow.entities import Entity, Light
+import math
 
 NORTH = 0b0001
 EAST  = 0b0010
@@ -17,7 +18,7 @@ class Actor(Entity):
         False
 
     def tick(self):
-        pass
+        self.do_light()
 
     def move(self, direction):
         if direction == 0b0000:
@@ -38,19 +39,30 @@ class Actor(Entity):
 
         if new_pos != self.position:
             self.invalidate()
+            self.em.remove(self)
             for entity in self.em.find(self.position):
                 entity.invalidate()
             
-            self.em.remove(self)
 
             self.position = new_pos
             self.em.add(self)
+
+    def do_light(self):
+        light = 7
+        (x,y) = self.position
+        for i in xrange(-light, light):
+            for j in xrange(-light, light):
+                lights = self.em.find_type((x+i,y+j), Light)
+                if len(lights) == 1:
+                    lights[0].light = max(light - int((math.sqrt(math.pow(i,2) + math.pow(j,2)))), lights[0].light)
+                    for entity in self.em.find((x+i,y+j)):
+                        entity.invalidate()
 
     def load_image_name(self):
         return self.img
 
     def order(self):
-        return 0xffffff
+        return 0xe
 
 class Player(Actor):
     @classmethod

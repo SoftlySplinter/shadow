@@ -15,19 +15,17 @@ class Entity(object):
     def invalidate(self):
         self.redraw = True
 
+    def passable(self):
+        return True
+
     def draw(self):
         if self.cached_image == None:
-            self.load_image()
-        darken = pygame.Surface(self.cached_image.get_size())
-        darken.fill((0,0,10))
-        darken.set_alpha((255 / 15 * (15 - self.light)) - 4)
-        temp = self.cached_image.copy()
-        temp.blit(darken, (0,0))
-        return temp
+            self.cached_image = self.load_image()
+        return self.cached_image
 
     def load_image(self):
         filen = os.path.join("data/img/", self.load_image_name() + ".png")
-        self.set_cached_image(pygame.image.load(filen))
+        return pygame.image.load(filen)
 
     def load_image_name(self):
         return "unknown"
@@ -44,5 +42,6 @@ class Entity(object):
     def __cmp__(self, other):
         return self.order() - other.order()
 
+from shadow.entities.light import *
 from shadow.entities.tile import *
 from shadow.entities.actors import *
