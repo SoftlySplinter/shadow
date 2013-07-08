@@ -11,7 +11,7 @@ def run():
     print "Shadow copyright Alexander Brown, 2013"
 
 class Game:
-    size = (100,100)
+    size = (10,10)
 
     def __init__(self):
         self.running = False

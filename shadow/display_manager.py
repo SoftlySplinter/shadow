@@ -23,4 +23,5 @@ class DisplayManager:
         x_step = width / self.game.size[0]
         y_step = height / self.game.size[1]
 
+        surface = pygame.transform.scale(surface, (x_step, y_step))
         self.game.window.blit(surface, (x * x_step, y * y_step))

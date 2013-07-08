@@ -20,7 +20,7 @@ class Entity(object):
         return self.cached_image
 
     def load_image(self):
-        filen = os.path.join("data", self.load_image_name() + ".png")
+        filen = os.path.join("data/img/", self.load_image_name() + ".png")
         self.set_cached_image(pygame.image.load(filen))
 
     def load_image_name(self):

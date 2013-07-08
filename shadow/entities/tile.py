@@ -9,7 +9,7 @@ class TileType():
 
     def __init__(self, name, img, passable):
         self.name = name
-        filen = os.path.join("data", img + ".png")
+        filen = os.path.join("data/img/", img + ".png")
         self.surface = pygame.image.load(filen)
         self.passable = passable
 
