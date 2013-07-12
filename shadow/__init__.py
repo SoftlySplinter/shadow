@@ -26,7 +26,9 @@ class Game:
     def start(self):
         self.running = True
         pygame.init()
-        self.window = pygame.display.set_mode((600,480))
+        info = pygame.display.Info()
+        self.window = pygame.display.set_mode((info.current_w, info.current_h))
+        pygame.display.toggle_fullscreen()
         self.window.convert_alpha()
 
         for i in xrange(0, self.size[0]):
@@ -34,7 +36,7 @@ class Game:
                 if (i,j) == (0,0):
                     self.em.add(Tile((i,j), self.types[0]))
                 else:
-                    self.em.add(Tile((i,j), self.types[random.randint(0,len(self.types)-2)]))
+                    self.em.add(Tile((i,j), self.types[random.randint(0,len(self.types)-1)]))
 
         for i in xrange(-1,self.size[0]):
                 self.em.add(Tile((i, -1), self.types[1]))
@@ -59,6 +61,8 @@ class Game:
             if event.type == QUIT:
                 self.running = False
             if event.type == KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.running = False
                 self.player.set_move(Player.direction(event.key))
             if event.type == KEYUP:
                 self.player.unset_move(Player.direction(event.key))
